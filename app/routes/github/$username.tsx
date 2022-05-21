@@ -1,29 +1,19 @@
-import { LoaderFunction } from '@remix-run/node'
+
 import { useLoaderData } from '@remix-run/react'
+import { LoaderData } from '~/features/github/types'
 
-export interface User {
-    login: string
-    avatar_url: string
-    html_url: string
-    bio: string
-    company: string
-    location: string
-}
-
-export interface LoaderData {
-    user: User
-}
-
+import { LoaderFunction } from '@remix-run/node'
+import { getGithubUser } from '~/features/github/api'
 export const loader: LoaderFunction = async ({ params }: any) => {
-    const res = await fetch(`https://api.github.com/users/${params.username}`)
-
     return {
-        user: await res.json()
+        user: await getGithubUser(params.username)
     }
 }
 
 export default function () {
     const { user } = useLoaderData<LoaderData>()
+    console.log(user);
+
 
     return (
         <>
