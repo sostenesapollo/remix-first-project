@@ -14,7 +14,7 @@ export default function Details() {
 
     const { state } = useLocation() as State
 
-    if (!state) return <>...</>
+    if (!state) return <>Selecione algum album na página anterior</>
 
     return (
         <Container>
